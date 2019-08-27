@@ -58,4 +58,22 @@ body {
     background-color: #67c2ec;
     box-shadow: 0em;
 }
-
+.no-border{
+    border:0;
+}
+.emp-profile{
+    padding: 3%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    border-radius: 0.5rem;
+    background: #fff;
+}
+h6{
+    font-size: 1.15rem;
+}
+.edit-btn{
+    border-radius: 5rem;
+}
+p{
+    margin-bottom:2em;
+}
