@@ -367,29 +367,31 @@
         </div>
 </div>
 <div class="container emp-profile" *ngIf="router.url == '/business'">
-<form>
+
         <div class="row">
-                <div class="col-sm-6">
-                        <div class="ml-5">
-                        <div class="row mb-5">
-                                <img src="./assets/images/logo.png" alt="book the event">
+                <div class="col-sm-4">
+                        <div class="row mb-3">
+                                <img src="./assets/images/logo.png" alt="book the event" class="mx-auto">
                         </div>
-                </div>
                 </div>        
-                <div class="col-md-6">
-                        <div class="tab-content">
-                        <div class="tab-pane fade show active">
-                                <div class="row mt-5">    
-                                        <button type="button" class="edit-btn btn btn-outline-dark ml-auto mr-5" (click)="editBusinessProfile();">Edit Profile</button>
-                                </div>
-                        </div>
-                        </div>
+                <div class="col-md-8 mt-5">
+                        <ul class="nav nav-tabs mt-5" id="myTab" role="tablist">
+                        <li class="nav-item">
+                                <a class="nav-link active text-dark" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Timeline</a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link text-dark" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Edit Profile</a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link text-dark" id="change_password-tab" data-toggle="tab" href="#change_password" role="tab" aria-controls="change_password" aria-selected="false">Change Password</a>
+                        </li>
+                        </ul>
                 </div>
         </div>
         <br>
         <div class="row">
-        <div class="col-sm-6">
-                <div class="ml-5">
+        <div class="col-sm-4 mb-5">
+                <div class="ml-5 d-none d-sm-none d-md-block">
                         <div class="row">
                                 Welcome,
                         </div> 
@@ -429,9 +431,13 @@
                 
                 
         </div>
-        <div class="col-sm-5">
-                <div class="tab-content" *ngIf="editprofile_btn==true">
-                <div class="tab-pane fade show active">
+        <div class="col-sm-7">
+                <div class="tab-content" >
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <form #editBusinessForm (onSubmit)="editformsubmitted && editBusinessForm.form.valid">
                         <br>        
                         <div class="row">
                         <div class="col-sm-4">
@@ -632,15 +638,58 @@
                         </div>
                         </div>
                         <br>
+                        <br>
                         <div class="row">
-                                <div class="col-sm-6">
-                                <button class="edit-btn btn btn-sm btn-dark btn-block text-uppercase mx-auto" type="submit" >Update</button>
+                                <button class="edit-btn btn btn-dark text-uppercase mx-auto p-2" type="submit" (click)="onEditForm()">Update</button>
+                        </div>
+                </form>        
+                </div>
+                <div class="tab-pane fade" id="change_password" role="tabpanel" aria-labelledby="change_password-tab">
+                <form #changePasswordForm="ngForm" (ngSubmit)="passwordsubmitted && changePasswordForm.form.valid" [mustMatch]="['newPassword', 'confirmNewPassword']"  novalidate>
+                <div class="row">
+                <div class="col-sm-5">
+                        <label>Current Password</label>
+                </div>
+                <div class="col-sm-7">
+                                <input type="password" class="form-control" required [(ngModel)]="model1.password" name="password" #password="ngModel">
+                                <div *ngIf="passwordsubmitted &&  password.invalid" class="alert alert-danger">
+                                <div *ngIf="password.errors.required">Password is required.</div>
                                 </div>
                         </div>
                 </div>
+                <br>
+                <div class="row">
+                <div class="col-sm-5">
+                        <label>Change Password</label>
+                </div>
+                <div class="col-sm-7">
+                                <input type="password" class="form-control" required [(ngModel)]="model1.newPassword" name="newPassword" #newPassword="ngModel">
+                                <div *ngIf="passwordsubmitted &&  newPassword.invalid" class="alert alert-danger">
+                                <div *ngIf="newPassword.errors.required">Password is required.</div>
+                                </div>
+                </div>
+                </div>
+                <br>
+                <div class="row">
+                <div class="col-sm-5">
+                        <label>Confirm Change Password</label>
+                </div>
+                <div class="col-sm-7">
+                        <input type="password" class="form-control" required [(ngModel)]="model1.confirmNewPassword" name="confirmNewPassword" #confirmNewPassword="ngModel">
+                        <div *ngIf="passwordsubmitted && confirmNewPassword.invalid" class="alert alert-danger">
+                        <div *ngIf="confirmNewPassword.errors.required">Confirm Password is required.</div>
+                        <div *ngIf="confirmNewPassword.errors.mustMatch">Passwords must match</div>
+                        </div>
+                </div>
+                </div>
+                <br>
+                <div class="row">
+                        <button class="edit-btn btn btn-dark text-uppercase p-2 mx-auto" type="submit" (click)="onChangePasswordForm()">Update</button>
+                </div>
+                </form>
                 </div>
         </div>
-        <div class="col-sm-2"></div>
         </div>
-</form>           
+       </div>
+         
 </div>
